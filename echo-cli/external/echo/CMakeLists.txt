@@ -25,9 +25,14 @@ project(echo-dev LANGUAGES CXX)
 
 # add dependencies
 add_subdirectory(external/libciabatta-version-4)
+add_subdirectory(external/googletest-1.8.1)
 
 # echo library
 add_subdirectory(src)
 
 # usage examples
 add_subdirectory(example)
+
+# unit tests
+enable_testing()
+add_subdirectory(test)

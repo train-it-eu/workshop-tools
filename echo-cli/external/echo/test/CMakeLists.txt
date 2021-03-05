@@ -22,15 +22,15 @@
 
 cmake_minimum_required(VERSION 3.12)
 
-add_library(echo-server
-  server.cpp include/echo/server.h
-  utils.cpp utils.h
+add_executable(unit-tests
+  messages_test.cpp
+  messages_io_test.cpp
+  utils_test.cpp
+  server_test.cpp
 )
-target_compile_features(echo-server PUBLIC cxx_std_20)
-target_include_directories(echo-server
-  PUBLIC
-    include
-    ${PROJECT_SOURCE_DIR}
+target_link_libraries(unit-tests
+  PRIVATE
+    echo::server
+    gtest_main
 )
-target_link_libraries(echo-server PUBLIC echo::protocol)
-add_library(echo::server ALIAS echo-server)
+add_test(NAME echo-unit-tests COMMAND unit-tests)
