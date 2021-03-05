@@ -26,7 +26,16 @@ project(echo
   LANGUAGES CXX
 )
 
+# project options
+option(ECHO_MIXINS "Enables Mixins support")
+
 # build definition
 add_subdirectory(protocol)
 add_subdirectory(server)
-add_subdirectory(mixins)
+
+if(ECHO_MIXINS)
+  message("Mixins support enabled")
+  add_subdirectory(mixins)
+else()
+  message("Mixins support disabled")
+endif()
