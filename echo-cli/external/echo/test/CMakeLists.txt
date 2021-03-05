@@ -22,6 +22,8 @@
 
 cmake_minimum_required(VERSION 3.12)
 
+find_package(GTest CONFIG REQUIRED)
+
 add_executable(echo-unit-tests
   messages_test.cpp
   messages_io_test.cpp
@@ -31,7 +33,7 @@ add_executable(echo-unit-tests
 target_link_libraries(echo-unit-tests
   PRIVATE
     echo::server
-    gtest_main
+    GTest::gtest_main
 )
 
 include(GoogleTest)

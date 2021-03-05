@@ -22,6 +22,8 @@
 
 cmake_minimum_required(VERSION 3.19)
 
+find_package(ciabatta CONFIG REQUIRED)
+
 add_library(echo-mixins INTERFACE
   include/echo/mixin_net_api.h
   include/echo/mixins/msg_logger.h
