@@ -59,5 +59,5 @@ int main(int argc, const char* argv[])
 
   std::cout << "\nRunning server with: count = " << count << ", payload_size = " << size << "\n\n";
 
-  // echo_cli::run(123, count, size);
+  echo_cli::run(123, count, size);
 }

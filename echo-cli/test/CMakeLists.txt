@@ -22,12 +22,12 @@
 
 cmake_minimum_required(VERSION 3.12)
 
-add_executable(unit-tests build_info_test.cpp)
-target_link_libraries(unit-tests
+add_executable(echo-cli-unit-tests build_info_test.cpp)
+target_link_libraries(echo-cli-unit-tests
   PRIVATE
     echo-cli-build-info
     gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(unit-tests)
+gtest_discover_tests(echo-cli-unit-tests)

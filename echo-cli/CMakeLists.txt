@@ -25,6 +25,7 @@ project(echo-cli-dev LANGUAGES CXX)
 
 # project dependencies
 add_subdirectory(external/googletest-1.10.x)
+add_subdirectory(external/echo/src)
 
 # echo-cli binary
 add_subdirectory(src)
