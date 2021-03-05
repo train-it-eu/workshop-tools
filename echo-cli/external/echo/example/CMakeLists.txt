@@ -21,10 +21,6 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.12)
-project(echo-dev LANGUAGES CXX)
 
-# echo library
-add_subdirectory(src)
-
-# usage examples
-add_subdirectory(example)
+add_executable(server-example server.cpp)
+target_link_libraries(server-example PRIVATE echo::server)

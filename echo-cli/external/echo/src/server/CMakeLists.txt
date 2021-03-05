@@ -21,10 +21,12 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.12)
-project(echo-dev LANGUAGES CXX)
 
-# echo library
-add_subdirectory(src)
-
-# usage examples
-add_subdirectory(example)
+add_library(echo-server
+  server.cpp include/echo/server.h
+  utils.cpp utils.h
+)
+target_compile_features(echo-server PUBLIC cxx_std_20)
+target_include_directories(echo-server PUBLIC include)
+target_link_libraries(echo-server PUBLIC echo::protocol)
+add_library(echo::server ALIAS echo-server)

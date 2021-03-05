@@ -21,10 +21,11 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.12)
-project(echo-dev LANGUAGES CXX)
 
-# echo library
-add_subdirectory(src)
-
-# usage examples
-add_subdirectory(example)
+add_library(echo-protocol STATIC
+  include/echo/messages.h
+  messages_io.cpp include/echo/messages_io.h
+)
+target_compile_features(echo-protocol PUBLIC cxx_std_20)
+target_include_directories(echo-protocol PUBLIC include)
+add_library(echo::protocol ALIAS echo-protocol)
