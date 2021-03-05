@@ -30,3 +30,4 @@ add_subdirectory(build_info)
 
 add_executable(echo-cli main.cpp)
 target_link_libraries(echo-cli PRIVATE echo-cli-build-info)
+target_compile_features(echo-cli PRIVATE cxx_std_17)
