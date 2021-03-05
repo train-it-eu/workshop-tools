@@ -20,14 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 3.12)
-project(echo-dev LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.19)
 
-# add dependencies
-add_subdirectory(external/libciabatta-version-4)
-
-# echo library
-add_subdirectory(src)
-
-# usage examples
-add_subdirectory(example)
+add_library(echo-mixins INTERFACE
+  include/echo/mixin_net_api.h
+  include/echo/mixins/msg_logger.h
+  include/echo/mixins/null_receiver.h
+  include/echo/mixins/null_sender.h
+  include/echo/mixins/ostream_logger.h
+  include/echo/mixins/stdout_logger.h
+)
+target_compile_features(echo-mixins INTERFACE cxx_std_20)
+target_include_directories(echo-mixins INTERFACE include)
+target_link_libraries(echo-mixins INTERFACE ciabatta::ciabatta)
+add_library(echo::mixins ALIAS echo-mixins)

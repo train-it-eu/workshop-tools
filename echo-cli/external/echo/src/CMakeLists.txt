@@ -29,3 +29,4 @@ project(echo
 # build definition
 add_subdirectory(protocol)
 add_subdirectory(server)
+add_subdirectory(mixins)
