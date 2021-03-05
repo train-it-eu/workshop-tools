@@ -18,6 +18,8 @@
 		"editor.guides.bracketPairs": "active",
 		"python.defaultInterpreterPath": "/workspace/.pip/bin/python",
 		"cmake.configureOnOpen": true,
+		"cmake.generator": "Ninja Multi-Config",
+		"cmake.buildDirectory": "${workspaceFolder}/build/${buildKitVendor}-${buildKitVersionMajor}",
 		"cmake.options.statusBarVisibility": "visible",
 		"cmake.options.advanced": {
 			"testPreset": {
