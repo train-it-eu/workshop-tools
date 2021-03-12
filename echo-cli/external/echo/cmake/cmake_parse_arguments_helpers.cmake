@@ -20,13 +20,22 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.2)
 
-find_package(GTest CONFIG REQUIRED)
-include(GoogleTest)
-include(unit_test_helpers)
+function(validate_unparsed target prefix)
+  if(${prefix}_UNPARSED_ARGUMENTS)
+    message(FATAL_ERROR "Invalid arguments '${${prefix}_UNPARSED_ARGUMENTS}' for target '${target}'")
+  endif()
+endfunction()
 
-add_gtest_unit_tests(echo-cli-unit-tests
-  LIBRARIES echo-cli-build-info
-  SOURCES build_info_test.cpp
-)
+function(validate_argument_exists target prefix arg)
+  if(NOT ${prefix}_${arg})
+    message(FATAL_ERROR "'${arg}' not provided for target '${target}'")
+  endif()
+endfunction()
+
+function(validate_arguments_exists target prefix)
+  foreach(arg ${ARGN})
+    validate_argument_exists(${target} ${prefix} ${arg})
+  endforeach()
+endfunction()
