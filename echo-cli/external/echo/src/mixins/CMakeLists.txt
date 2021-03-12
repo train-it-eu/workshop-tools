@@ -22,8 +22,10 @@
 
 cmake_minimum_required(VERSION 3.19)
 
+# add dependencies
 find_package(ciabatta CONFIG REQUIRED)
 
+# build definition
 add_library(echo-mixins INTERFACE
   include/echo/mixin_net_api.h
   include/echo/mixins/msg_logger.h
@@ -33,6 +35,13 @@ add_library(echo-mixins INTERFACE
   include/echo/mixins/stdout_logger.h
 )
 target_compile_features(echo-mixins INTERFACE cxx_std_20)
-target_include_directories(echo-mixins INTERFACE include)
+target_include_directories(echo-mixins INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
 target_link_libraries(echo-mixins INTERFACE ciabatta::ciabatta)
+set_target_properties(echo-mixins PROPERTIES EXPORT_NAME mixins)
 add_library(echo::mixins ALIAS echo-mixins)
+
+# installation
+install(TARGETS echo-mixins EXPORT echo-targets
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+install(DIRECTORY include/echo DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

@@ -22,6 +22,7 @@
 
 cmake_minimum_required(VERSION 3.12)
 
+# build definition
 add_library(echo-server
   server.cpp include/echo/server.h
   utils.cpp utils.h
@@ -29,8 +30,15 @@ add_library(echo-server
 target_compile_features(echo-server PUBLIC cxx_std_20)
 target_include_directories(echo-server
   PUBLIC
-    include
-    ${PROJECT_SOURCE_DIR}
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
 )
 target_link_libraries(echo-server PUBLIC echo::protocol)
+set_target_properties(echo-server PROPERTIES EXPORT_NAME server)
 add_library(echo::server ALIAS echo-server)
+
+# installation
+install(TARGETS echo-server EXPORT echo-targets
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+install(DIRECTORY include/echo DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

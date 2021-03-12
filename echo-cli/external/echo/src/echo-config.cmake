@@ -20,20 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 3.12)
+include(CMakeFindDependencyMacro)
+find_dependency(ciabatta)
 
-# build definition
-add_library(echo-protocol STATIC
-  include/echo/messages.h
-  messages_io.cpp include/echo/messages_io.h
-)
-target_compile_features(echo-protocol PUBLIC cxx_std_20)
-target_include_directories(echo-protocol PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
-set_target_properties(echo-protocol PROPERTIES EXPORT_NAME protocol)
-add_library(echo::protocol ALIAS echo-protocol)
-
-# installation
-install(TARGETS echo-protocol EXPORT echo-targets
-  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-install(DIRECTORY include/echo DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+include(${CMAKE_CURRENT_LIST_DIR}/echo-targets.cmake)

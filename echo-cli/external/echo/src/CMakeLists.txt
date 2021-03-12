@@ -30,6 +30,7 @@ project(echo
 option(ECHO_MIXINS "Enables Mixins support")
 
 # build definition
+include(GNUInstallDirs)
 add_subdirectory(protocol)
 add_subdirectory(server)
 
@@ -39,3 +40,14 @@ if(ECHO_MIXINS)
 else()
   message("Mixins support disabled")
 endif()
+
+# installation
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(echo-config-version.cmake COMPATIBILITY SameMajorVersion)
+install(FILES echo-config.cmake ${CMAKE_CURRENT_BINARY_DIR}/echo-config-version.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/echo
+)
+install(EXPORT echo-targets
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/echo
+  NAMESPACE echo::
+)
