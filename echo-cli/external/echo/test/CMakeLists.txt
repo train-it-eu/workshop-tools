@@ -23,24 +23,61 @@
 find_package(GTest CONFIG REQUIRED)
 include(GoogleTest)
 
-function(add_gtest_unit_tests target link_target)
-  if(NOT TARGET ${link_target})
-    message(FATAL_ERROR "'${link_target}' is not a CMake target")
+function(validate_unparsed target prefix)
+  if(${prefix}_UNPARSED_ARGUMENTS)
+    message(FATAL_ERROR "Invalid arguments '${${prefix}_UNPARSED_ARGUMENTS}' for target '${target}'")
+  endif()
+endfunction()
+
+function(validate_argument_exists target prefix arg)
+  if(NOT ${prefix}_${arg})
+    message(FATAL_ERROR "'${arg}' not provided for target '${target}'")
+  endif()
+endfunction()
+
+function(validate_arguments_exists target prefix)
+  foreach(arg ${ARGN})
+    validate_argument_exists(${target} ${prefix} ${arg})
+  endforeach()
+endfunction()
+
+#
+# add_gtest_unit_tests(TargetName [EXCLUDE_FROM_ALL]
+#                      LIBRARIES <lib>...
+#                      SOURCES <item>...)
+#
+function(add_gtest_unit_tests target)
+  # parse arguments
+  set(options EXCLUDE_FROM_ALL)
+  set(oneValueArgs)
+  set(multiValueArgs LIBRARIES SOURCES)
+  cmake_parse_arguments(PARSE_ARGV 1 add_gtest_unit_tests "${options}" "${oneValueArgs}" "${multiValueArgs}")
+
+  # validate and process arguments
+  validate_unparsed(${target} add_gtest_unit_tests)
+  validate_arguments_exists(${target} add_gtest_unit_tests LIBRARIES SOURCES)
+  if(add_gtest_unit_tests_EXCLUDE_FROM_ALL)
+    set(exclude_from_all EXCLUDE_FROM_ALL)
   endif()
 
-  add_executable(${target})
-  target_sources(${target} PRIVATE ${ARGN})
+  # define tests
+  add_executable(${target} ${exclude_from_all})
+  target_sources(${target} PRIVATE ${add_gtest_unit_tests_SOURCES})
   target_include_directories(${target} PRIVATE ${echo_SOURCE_DIR})
-  target_link_libraries(${target} PRIVATE ${link_target} GTest::gtest_main)
+  target_link_libraries(${target} PRIVATE ${add_gtest_unit_tests_LIBRARIES} GTest::gtest_main)
   gtest_discover_tests(${target})
 endfunction()
 
-add_gtest_unit_tests(echo-protocol-unit-tests echo::protocol
-  messages_test.cpp
-  messages_io_test.cpp
+add_gtest_unit_tests(echo-protocol-unit-tests
+  LIBRARIES echo::protocol
+  SOURCES
+    messages_test.cpp
+    messages_io_test.cpp
 )
 
-add_gtest_unit_tests(echo-server-unit-tests echo::server
-  utils_test.cpp
-  server_test.cpp
+add_gtest_unit_tests(echo-server-unit-tests
+  LIBRARIES echo::server
+  SOURCES
+    utils_test.cpp
+    server_test.cpp
 )
