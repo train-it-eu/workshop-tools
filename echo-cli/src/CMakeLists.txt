@@ -28,6 +28,13 @@ project(echo-cli
 
 add_subdirectory(build_info)
 
-add_executable(echo-cli main.cpp)
+add_executable(echo-cli
+  main.cpp
+  server.cpp server.h
+)
 target_compile_features(echo-cli PRIVATE cxx_std_17)
-target_link_libraries(echo-cli PRIVATE echo-cli-build-info)
+target_link_libraries(echo-cli
+  PRIVATE
+    echo-cli-build-info
+    echo::server
+)
