@@ -25,9 +25,11 @@ cmake_minimum_required(VERSION 3.12)
 add_executable(server-example server.cpp)
 target_link_libraries(server-example PRIVATE echo::server)
 
-add_executable(server-example-mixins server_mixin.cpp)
-target_link_libraries(server-example-mixins
-  PRIVATE
-    echo::server
-    echo::mixins
-)
+if(TARGET echo::mixins)
+  add_executable(server-example-mixins server_mixin.cpp)
+  target_link_libraries(server-example-mixins
+    PRIVATE
+      echo::server
+      echo::mixins
+  )
+endif()
