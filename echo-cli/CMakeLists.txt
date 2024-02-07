@@ -26,3 +26,4 @@ project(echo-cli
   LANGUAGES CXX)
 
 add_executable(echo-cli src/main.cpp)
+target_compile_features(echo-cli PRIVATE cxx_std_17)
