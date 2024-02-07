@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+find_package(GTest CONFIG REQUIRED)
+
 add_executable(echo-unit-tests)
 target_sources(echo-unit-tests PRIVATE
   messages_test.cpp
@@ -31,7 +33,7 @@ target_include_directories(echo-unit-tests PRIVATE ${echo_SOURCE_DIR})
 target_link_libraries(echo-unit-tests
   PRIVATE
     echo::server
-    gtest_main
+    GTest::gtest_main
 )
 
 include(GoogleTest)

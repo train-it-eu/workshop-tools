@@ -22,6 +22,7 @@
 		"cmake.configureArgs": [
 			"-DCMAKE_VERIFY_INTERFACE_HEADER_SETS=ON"
 		],
+		"cmake.installPrefix": "${env:PERSISTENT_DIR}/.local/${buildKitVendor}-${buildKitVersionMajor}",
 		"cmake.options.statusBarVisibility": "visible",
 		"cmake.options.advanced": {
 			"testPreset": {
