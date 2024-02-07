@@ -1,0 +1,4 @@
+#pragma once
+
+inline constexpr int ECHO_CLI_VERSION_MAJOR = @PROJECT_VERSION_MAJOR@;
+inline constexpr int ECHO_CLI_VERSION_MINOR = @PROJECT_VERSION_MINOR@;
