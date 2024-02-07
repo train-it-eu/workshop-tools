@@ -22,6 +22,8 @@
 
 cmake_minimum_required(VERSION 3.23)
 
+find_package(ciabatta CONFIG REQUIRED)
+
 add_library(echo-mixins INTERFACE)
 target_include_directories(echo-mixins INTERFACE include)
 target_sources(echo-mixins PUBLIC

@@ -22,12 +22,14 @@
 
 cmake_minimum_required(VERSION 3.12)
 
+find_package(GTest CONFIG REQUIRED)
+
 add_executable(echo-cli-unit-tests build_info_test.cpp)
 target_include_directories(echo-cli-unit-tests PRIVATE ${echo-cli_SOURCE_DIR})
 target_link_libraries(echo-cli-unit-tests
   PRIVATE
     echo-cli-build-info
-    gtest_main
+    GTest::gtest_main
 )
 
 include(GoogleTest)

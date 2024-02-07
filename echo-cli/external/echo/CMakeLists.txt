@@ -23,10 +23,6 @@
 cmake_minimum_required(VERSION 3.23)
 project(echo-dev LANGUAGES CXX)
 
-# add dependencies
-add_subdirectory(external/libciabatta-version-4)
-add_subdirectory(external/googletest-1.8.1)
-
 # echo library
 add_subdirectory(src)
 
