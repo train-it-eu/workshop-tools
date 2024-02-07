@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+find_package(ciabatta CONFIG REQUIRED)
+
 add_library(echo-mixins INTERFACE)
 target_sources(echo-mixins PUBLIC
   FILE_SET HEADERS
