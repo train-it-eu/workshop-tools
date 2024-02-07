@@ -21,14 +21,14 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.12)
-project(echo-cli-dev LANGUAGES CXX)
 
-# project dependencies
-add_subdirectory(external/googletest-1.10.x)
+add_executable(unit-tests build_info_test.cpp)
+target_include_directories(unit-tests PRIVATE ${echo-cli_SOURCE_DIR})
+target_link_libraries(unit-tests
+  PRIVATE
+    echo-cli-build-info
+    gtest_main
+)
 
-# echo-cli binary
-add_subdirectory(src)
-
-# unit tests
-enable_testing()
-add_subdirectory(test)
+include(GoogleTest)
+gtest_discover_tests(unit-tests)
