@@ -20,13 +20,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+find_package(GTest CONFIG REQUIRED)
+
 add_executable(echo-cli-unit-tests)
 target_sources(echo-cli-unit-tests PRIVATE build_info_test.cpp)
 target_include_directories(echo-cli-unit-tests PRIVATE ${echo-cli_SOURCE_DIR})
 target_link_libraries(echo-cli-unit-tests
   PRIVATE
     echo-cli-build-info
-    gtest_main
+    GTest::gtest_main
 )
 
 include(GoogleTest)

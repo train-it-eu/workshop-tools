@@ -24,8 +24,6 @@ cmake_minimum_required(VERSION 4.0)
 project(echo-cli-dev LANGUAGES CXX)
 
 # project dependencies
-add_subdirectory(external/googletest-1.10.x SYSTEM)
-add_subdirectory(external/echo/external/libciabatta-version-4 SYSTEM)
 add_subdirectory(external/echo/src SYSTEM)
 
 # project sources
