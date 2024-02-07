@@ -20,19 +20,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 3.23)
-project(echo-dev LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.12)
 
-# add dependencies
-add_subdirectory(external/libciabatta-version-4)
-add_subdirectory(external/googletest-1.8.1)
-
-# echo library
-add_subdirectory(src)
-
-# usage examples
-add_subdirectory(example)
-
-# unit tests
-enable_testing()
-add_subdirectory(test)
+add_executable(unit-tests
+  messages_test.cpp
+  messages_io_test.cpp
+  utils_test.cpp
+  server_test.cpp
+)
+target_include_directories(unit-tests PRIVATE ${echo_SOURCE_DIR})
+target_link_libraries(unit-tests
+  PRIVATE
+    echo::server
+    gtest_main
+)
+add_test(NAME echo-unit-tests COMMAND unit-tests)
