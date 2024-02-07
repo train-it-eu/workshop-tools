@@ -26,6 +26,10 @@ project(echo-cli
   LANGUAGES CXX
 )
 
+# create project configuration
+configure_file(echo_cli_config.h.in echo_cli_config.h)
+
+# build definition
 add_subdirectory(build_info)
 
 add_executable(echo-cli)
@@ -36,8 +40,12 @@ target_sources(echo-cli
   PRIVATE
     FILE_SET internal
     TYPE HEADERS
+    BASE_DIRS 
+      "${CMAKE_CURRENT_SOURCE_DIR}"
+      "${PROJECT_BINARY_DIR}"
     FILES
-      server.h
+      "${CMAKE_CURRENT_SOURCE_DIR}/server.h"
+      "${PROJECT_BINARY_DIR}/echo_cli_config.h"
 )
 target_compile_features(echo-cli PRIVATE cxx_std_17)
 target_link_libraries(echo-cli

@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 #include "build_info/build_info.h"
-// #include "echo_cli_config.h"
+#include "echo_cli_config.h"
 #include "server.h"
 #include <filesystem>
 #include <iostream>
@@ -33,7 +33,7 @@ using path = std::filesystem::path;
 void usage(const path& p)
 {
   std::cout << "Usage: " << p.filename().string() << " COUNT PAYLOAD_SIZE\n";
-  std::cout << "Version: " << 0 << "." << 1 << " (compiled as: ";
+  std::cout << "Version: " << ECHO_CLI_VERSION_MAJOR << "." << ECHO_CLI_VERSION_MINOR << " (compiled as: ";
 #if NDEBUG
   std::cout << "Release";
 #else
