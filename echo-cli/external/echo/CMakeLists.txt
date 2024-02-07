@@ -54,3 +54,7 @@ target_sources(echo-server PUBLIC
 target_compile_features(echo-server PUBLIC cxx_std_20)
 target_link_libraries(echo-server PUBLIC echo::protocol)
 add_library(echo::server ALIAS echo-server)
+
+# example
+add_executable(server-example example/server.cpp)
+target_link_libraries(server-example PRIVATE echo::server)
