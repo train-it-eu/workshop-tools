@@ -32,3 +32,16 @@ add_subdirectory(src)
 # unit tests
 enable_testing()
 add_subdirectory(test)
+
+# Calculate hashes
+add_custom_command(OUTPUT "${CMAKE_BINARY_DIR}/hashes.sha"
+  COMMAND "${CMAKE_COMMAND}" -E echo "Hashing $<TARGET_FILE:echo::server>"
+  COMMAND "${CMAKE_COMMAND}" -E sha256sum "$<TARGET_FILE:echo::server>" > "${CMAKE_BINARY_DIR}/hashes.sha"
+  COMMAND "${CMAKE_COMMAND}" -E echo "Hashing $<TARGET_FILE:echo-cli>"
+  COMMAND "${CMAKE_COMMAND}" -E sha256sum "$<TARGET_FILE:echo-cli>" >> "${CMAKE_BINARY_DIR}/hashes.sha"
+  DEPENDS echo::server echo-cli
+)
+
+add_custom_target(hash ALL
+  DEPENDS "${CMAKE_BINARY_DIR}/hashes.sha"
+)
