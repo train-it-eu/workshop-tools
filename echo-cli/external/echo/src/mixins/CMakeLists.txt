@@ -20,14 +20,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.23)
 
-add_executable(server-example server.cpp)
-target_link_libraries(server-example PRIVATE echo::server)
-
-add_executable(server-example-mixins server_mixin.cpp)
-target_link_libraries(server-example-mixins
-  PRIVATE
-    echo::server
-    echo::mixins
+add_library(echo-mixins INTERFACE)
+target_include_directories(echo-mixins INTERFACE include)
+target_sources(echo-mixins PUBLIC
+  FILE_SET HEADERS BASE_DIRS include
+  FILES
+    include/echo/mixin_net_api.h
+    include/echo/mixins/msg_logger.h
+    include/echo/mixins/null_receiver.h
+    include/echo/mixins/null_sender.h
+    include/echo/mixins/ostream_logger.h
+    include/echo/mixins/stdout_logger.h
 )
+target_compile_features(echo-mixins INTERFACE cxx_std_20)
+target_link_libraries(echo-mixins INTERFACE ciabatta::ciabatta)
+add_library(echo::mixins ALIAS echo-mixins)
