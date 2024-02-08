@@ -22,10 +22,12 @@
 
 cmake_minimum_required(VERSION 3.23)
 
+# add dependencies
 find_package(ciabatta CONFIG REQUIRED)
 
+# build definition
 add_library(echo-mixins INTERFACE)
-target_include_directories(echo-mixins INTERFACE include)
+target_include_directories(echo-mixins INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
 target_sources(echo-mixins PUBLIC
   FILE_SET HEADERS BASE_DIRS include
   FILES
@@ -38,4 +40,8 @@ target_sources(echo-mixins PUBLIC
 )
 target_compile_features(echo-mixins INTERFACE cxx_std_20)
 target_link_libraries(echo-mixins INTERFACE ciabatta::ciabatta)
+set_target_properties(echo-mixins PROPERTIES EXPORT_NAME mixins)
 add_library(echo::mixins ALIAS echo-mixins)
+
+# installation
+install(TARGETS echo-mixins EXPORT echo-targets FILE_SET HEADERS)

@@ -22,10 +22,11 @@
 
 cmake_minimum_required(VERSION 3.23)
 
+# build definition
 add_library(echo-protocol STATIC
   messages_io.cpp 
 )
-target_include_directories(echo-protocol PUBLIC include)
+target_include_directories(echo-protocol PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
 target_sources(echo-protocol PUBLIC
   FILE_SET HEADERS BASE_DIRS include
   FILES
@@ -33,4 +34,8 @@ target_sources(echo-protocol PUBLIC
     include/echo/messages_io.h
 )
 target_compile_features(echo-protocol PUBLIC cxx_std_20)
+set_target_properties(echo-protocol PROPERTIES EXPORT_NAME protocol)
 add_library(echo::protocol ALIAS echo-protocol)
+
+# installation
+install(TARGETS echo-protocol EXPORT echo-targets FILE_SET HEADERS)

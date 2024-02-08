@@ -20,23 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 3.23)
+set(ECHO_MIXINS @ECHO_MIXINS@)
+if(ECHO_MIXINS)
+  include(CMakeFindDependencyMacro)
+  find_dependency(ciabatta)
+endif()
 
-# build definition
-add_library(echo-server
-  server.cpp
-  utils.cpp utils.h
-)
-target_include_directories(echo-server PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
-target_sources(echo-server PUBLIC
-  FILE_SET HEADERS BASE_DIRS include
-  FILES
-    include/echo/server.h
-)
-target_compile_features(echo-server PUBLIC cxx_std_20)
-target_link_libraries(echo-server PUBLIC echo::protocol)
-set_target_properties(echo-server PROPERTIES EXPORT_NAME server)
-add_library(echo::server ALIAS echo-server)
-
-# installation
-install(TARGETS echo-server EXPORT echo-targets FILE_SET HEADERS)
+include(${CMAKE_CURRENT_LIST_DIR}/echo-targets.cmake)
