@@ -54,3 +54,7 @@ target_link_libraries(echo-cli
     echo::server
     $<$<TARGET_EXISTS:echo::mixins>:echo::mixins>
 )
+
+# installation
+include(GNUInstallDirs)
+install(TARGETS echo-cli)
