@@ -32,4 +32,15 @@ target_sources(echo-protocol
       include/echo/messages_io.h
 )
 target_compile_features(echo-protocol PUBLIC cxx_std_20)
+set_target_properties(echo-protocol PROPERTIES EXPORT_NAME protocol)
 add_library(echo::protocol ALIAS echo-protocol)
+
+# installation
+install(TARGETS echo-protocol
+  EXPORT echo-targets
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/$<$<CONFIG:Debug>:debug>
+  RUNTIME
+    DESTINATION ${CMAKE_INSTALL_BINDIR}/$<$<CONFIG:Debug>:debug>
+  FILE_SET HEADERS
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)

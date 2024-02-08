@@ -20,33 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-add_library(echo-server)
-target_sources(echo-server
-  PRIVATE
-    server.cpp
-    utils.cpp
-  PRIVATE
-    FILE_SET internal
-    TYPE HEADERS
-    FILES
-      utils.h
-  PUBLIC
-    FILE_SET HEADERS
-    BASE_DIRS include
-    FILES
-      include/echo/server.h
-)
-target_compile_features(echo-server PUBLIC cxx_std_20)
-target_link_libraries(echo-server PUBLIC echo::protocol)
-set_target_properties(echo-server PROPERTIES EXPORT_NAME server)
-add_library(echo::server ALIAS echo-server)
+set(ECHO_MIXINS @ECHO_MIXINS@)
+if(ECHO_MIXINS)
+  include(CMakeFindDependencyMacro)
+  find_dependency(ciabatta)
+endif()
 
-# installation
-install(
-  TARGETS echo-server EXPORT echo-targets
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/$<$<CONFIG:Debug>:debug>
-  RUNTIME
-    DESTINATION ${CMAKE_INSTALL_BINDIR}/$<$<CONFIG:Debug>:debug>
-  FILE_SET HEADERS
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
+include(${CMAKE_CURRENT_LIST_DIR}/echo-targets.cmake)
