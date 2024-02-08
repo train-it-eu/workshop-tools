@@ -1,0 +1,13 @@
+{
+    "version": 4,
+    "configurePresets": [
+        {
+            "name": "configure-project-base",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_VERIFY_INTERFACE_HEADER_SETS": true,
+                "CMAKE_FIND_PACKAGE_PREFER_CONFIG": true
+            }
+        }
+    ]
+}
