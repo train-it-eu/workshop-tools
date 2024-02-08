@@ -37,5 +37,8 @@
 build/
 /test_package/build/
 
+# CMake
+CMakeUserPresets.json
+
 # Conan
 *.pyc
