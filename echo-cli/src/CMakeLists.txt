@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.14)
 project(echo-cli
   VERSION 0.1.0
   LANGUAGES CXX
@@ -43,3 +43,7 @@ target_link_libraries(echo-cli
     echo-cli-build-info
     echo::server
 )
+
+# installation
+include(GNUInstallDirs)
+install(TARGETS echo-cli)
