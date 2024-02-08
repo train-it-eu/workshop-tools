@@ -20,13 +20,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.7)
 
-find_package(GTest CONFIG REQUIRED)
-include(GoogleTest)
-include(unit_test_helpers)
+include(cmake_parse_arguments_helpers)
 
-add_gtest_unit_tests(echo-cli-unit-tests
-  LIBRARIES echo-cli-build-info
-  SOURCES build_info_test.cpp
-)
+#
+# add_gtest_unit_tests(TargetName [EXCLUDE_FROM_ALL]
+#                      LIBRARIES <lib>...
+#                      SOURCES <item>...)
+#
+function(add_gtest_unit_tests target)
+  # parse arguments
+  set(options EXCLUDE_FROM_ALL)
+  set(oneValueArgs)
+  set(multiValueArgs LIBRARIES SOURCES)
+  cmake_parse_arguments(PARSE_ARGV 1 add_gtest_unit_tests "${options}" "${oneValueArgs}" "${multiValueArgs}")
+
+  # validate and process arguments
+  validate_unparsed(${target} add_gtest_unit_tests)
+  validate_arguments_exists(${target} add_gtest_unit_tests LIBRARIES SOURCES)
+  if(${add_gtest_unit_tests_EXCLUDE_FROM_ALL})
+    set(exclude_from_all EXCLUDE_FROM_ALL)
+  endif()
+
+  # define tests
+  add_executable(${target} ${exclude_from_all} ${add_gtest_unit_tests_SOURCES})
+  target_include_directories(${target} PRIVATE ${echo-cli_SOURCE_DIR})
+  target_link_libraries(${target} PRIVATE ${add_gtest_unit_tests_LIBRARIES} GTest::gtest_main)
+  gtest_discover_tests(${target})
+endfunction()
