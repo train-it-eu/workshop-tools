@@ -20,8 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# add dependencies
 find_package(ciabatta CONFIG REQUIRED)
 
+# build definition
 add_library(echo-mixins INTERFACE)
 target_sources(echo-mixins PUBLIC
   FILE_SET HEADERS
@@ -37,4 +39,8 @@ target_sources(echo-mixins PUBLIC
 target_compile_features(echo-mixins INTERFACE cxx_std_20)
 target_compile_definitions(echo-mixins INTERFACE ECHO_MIXINS=1)
 target_link_libraries(echo-mixins INTERFACE ciabatta::ciabatta)
+set_target_properties(echo-mixins PROPERTIES EXPORT_NAME mixins)
 add_library(echo::mixins ALIAS echo-mixins)
+
+# installation
+install(TARGETS echo-mixins EXPORT echo-targets FILE_SET HEADERS)
