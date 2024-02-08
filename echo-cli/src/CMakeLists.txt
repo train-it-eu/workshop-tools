@@ -53,3 +53,7 @@ target_link_libraries(echo-cli
     echo-cli-build-info
     echo::server
 )
+
+# installation
+include(GNUInstallDirs)
+install(TARGETS echo-cli)
