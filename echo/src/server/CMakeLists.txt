@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.23)
+list(APPEND CMAKE_MESSAGE_CONTEXT server)
 
 # build definition
 add_library(echo-server

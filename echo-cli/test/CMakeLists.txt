@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.12)
+list(APPEND CMAKE_MESSAGE_CONTEXT test)
 
 find_package(GTest CONFIG REQUIRED)
 include(GoogleTest)

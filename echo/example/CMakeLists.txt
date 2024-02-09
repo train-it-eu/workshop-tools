@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.12)
+list(APPEND CMAKE_MESSAGE_CONTEXT example)
 
 add_executable(server-example server.cpp)
 target_link_libraries(server-example PRIVATE echo::server)

@@ -6,7 +6,8 @@
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_VERIFY_INTERFACE_HEADER_SETS": true,
-                "CMAKE_FIND_PACKAGE_PREFER_CONFIG": true
+                "CMAKE_FIND_PACKAGE_PREFER_CONFIG": true,
+                "CMAKE_MESSAGE_CONTEXT_SHOW": true
             }
         }
     ],
