@@ -52,3 +52,8 @@ install(EXPORT echo-targets
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/echo
   NAMESPACE echo::
 )
+
+# local build
+export(EXPORT echo-targets
+  NAMESPACE echo::
+)
