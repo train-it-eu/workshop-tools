@@ -22,7 +22,8 @@
 		"cmake.buildDirectory": "${workspaceFolder}/build/${buildKitVendor}-${buildKitVersionMajor}",
 		"cmake.configureArgs": [
 			"-DCMAKE_VERIFY_INTERFACE_HEADER_SETS=ON",
-			"-DCMAKE_INSTALL_PREFIX=/workspace/.local/${buildKitVendor}-${buildKitVersionMajor}/${buildType}"
+			"-DCMAKE_INSTALL_PREFIX=/workspace/.local/${buildKitVendor}-${buildKitVersionMajor}/${buildType}",
+			"--toolchain=/workspace/toolchains/${buildKitVendor}-${buildKitVersionMajor}-toolchain.cmake"
 		],
 		"cmake.options.statusBarVisibility": "visible",
 		"cmake.options.advanced": {
