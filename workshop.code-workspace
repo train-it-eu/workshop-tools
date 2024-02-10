@@ -4,10 +4,10 @@
 			"path": "echo-cli"
 		},
 		{
-			"path": "echo-cli/external/echo"
+			"path": "echo"
 		},
 		{
-			"path": "echo-cli/external/echo/test_package"
+			"path": "echo/test_package"
 		},
 		{
 			"path": "."
