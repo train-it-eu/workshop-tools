@@ -15,8 +15,7 @@
             "name": "build-all",
             "hidden": true,
             "targets": [
-                "all",
-                "all_verify_interface_header_sets"
+                "all"
             ]
         }
     ]

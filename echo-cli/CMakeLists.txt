@@ -29,9 +29,6 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 include(warnings)
 set_warnings()
 
-# project dependencies
-add_subdirectory(external/echo/src SYSTEM)
-
 # project sources
 add_subdirectory(src)
 
