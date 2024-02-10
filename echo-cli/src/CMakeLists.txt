@@ -26,6 +26,9 @@ project(echo-cli
   LANGUAGES CXX
 )
 
+# add dependencies
+find_package(echo CONFIG REQUIRED GLOBAL)
+
 # create project configuration
 configure_file(echo_cli_config.h.in echo_cli_config.h)
 
