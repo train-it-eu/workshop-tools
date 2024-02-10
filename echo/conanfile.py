@@ -22,12 +22,26 @@
 
 from conan import ConanFile
 from conan.tools.cmake import cmake_layout
+from conan.tools.build import check_min_cppstd
 
 
 class EchoConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     test_requires = "gtest/1.10.0"
+    options = {"shared": [True, False], "fPIC": [True, False]}
+    default_options = {"shared": False, "fPIC": True}
     generators = "CMakeDeps", "CMakeToolchain"
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            self.options.rm_safe("fPIC")
+
+    def configure(self):
+        if self.options.shared:
+            self.options.rm_safe("fPIC")
+
+    def validate(self):
+        check_min_cppstd(self, "20")
 
     def layout(self):
         cmake_layout(self)
