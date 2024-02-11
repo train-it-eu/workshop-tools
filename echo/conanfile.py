@@ -20,20 +20,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os, re
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.build import can_run, check_min_cppstd
+from conan.tools.files import copy, load, rmdir
 
 
 class EchoConan(ConanFile):
+    name = "echo"
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
+    exports = "LICENSE.md"
+    exports_sources = "src/*", "test/*", "cmake/*", "example/*", "CMakeLists.txt"
     no_copy_source = True
 
     @property
     def _build_all(self):
         return bool(self.conf.get("user.workshop.build:all", default=False))
+
+    def set_version(self):
+        content = load(self, os.path.join(self.recipe_folder, "src/CMakeLists.txt"))
+        version = re.search(
+            r"project\([^\)]+VERSION (\d+\.\d+\.\d+)[^\)]*\)", content
+        ).group(1)
+        self.version = version.strip()
 
     def build_requirements(self):
         if self._build_all:
@@ -69,3 +81,19 @@ class EchoConan(ConanFile):
             cmake.build(target="all_verify_interface_header_sets")
             if can_run(self):
                 cmake.test()
+
+    def package(self):
+        copy(
+            self,
+            "LICENSE.md",
+            self.source_folder,
+            os.path.join(self.package_folder, "licenses"),
+        )
+        cmake = CMake(self)
+        cmake.install()
+        rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
+
+    def package_info(self):
+        self.cpp_info.components["protocol"].libs = ["echo-protocol"]
+        self.cpp_info.components["server"].requires = ["protocol"]
+        self.cpp_info.components["server"].libs = ["echo-server"]
