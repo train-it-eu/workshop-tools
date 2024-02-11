@@ -21,15 +21,23 @@
 # SOFTWARE.
 
 from conan import ConanFile
-from conan.tools.cmake import CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.build import check_min_cppstd
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.build import can_run, check_min_cppstd
 
 
 class EchoConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
-    test_requires = "gtest/1.10.0"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
+    no_copy_source = True
+
+    @property
+    def _build_all(self):
+        return bool(self.conf.get("user.workshop.build:all", default=False))
+
+    def build_requirements(self):
+        if self._build_all:
+            self.test_requires("gtest/1.8.1")
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -48,7 +56,16 @@ class EchoConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         tc.cache_variables["CMAKE_MESSAGE_CONTEXT_SHOW"] = True
-        tc.cache_variables["CMAKE_VERIFY_INTERFACE_HEADER_SETS"] = True
+        tc.cache_variables["CMAKE_VERIFY_INTERFACE_HEADER_SETS"] = self._build_all
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure(build_script_folder=None if self._build_all else "src")
+        cmake.build()
+        if self._build_all:
+            cmake.build(target="all_verify_interface_header_sets")
+            if can_run(self):
+                cmake.test()
