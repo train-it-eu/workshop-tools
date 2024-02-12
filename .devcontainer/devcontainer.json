@@ -1,0 +1,29 @@
+{
+  "name": "Modern Toolset Workshop",
+  "image": "trainiteu/vscode-cpp",
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-workspace,target=/workspace,type=volume"
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/${localWorkspaceFolderBasename},type=bind",
+  "workspaceFolder": "/workspace/${localWorkspaceFolderBasename}",
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": [
+        "ms-vscode.cpptools-extension-pack",
+        "mhutchie.git-graph",
+        "vivaxy.vscode-conventional-commits",
+        "streetsidesoftware.code-spell-checker",
+        "ms-python.python",
+        "ms-python.black-formatter",
+        "twxs.cmake",
+        "ms-vscode.cmake-tools",
+        "hbenl.vscode-test-explorer",
+        "matepek.vscode-catch2-test-adapter",
+        "ms-vsliveshare.vsliveshare"
+      ]
+    }
+  },
+  "remoteUser": "ubuntu",
+  "postCreateCommand": "sudo chown ubuntu:ubuntu /workspace && python -m venv ${PYTHON_VENV}"
+}

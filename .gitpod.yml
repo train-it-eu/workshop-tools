@@ -1,0 +1,24 @@
+image: trainiteu/gitpod-cpp
+
+# --------------------------------------------------------
+# some useful extensions to have
+vscode:
+  extensions:
+    - vivaxy.vscode-conventional-commits
+    - streetsidesoftware.code-spell-checker
+    - ms-python.python
+    - ms-python.black-formatter
+    - twxs.cmake
+    - ms-vscode.cmake-tools
+    - hbenl.vscode-test-explorer
+    - matepek.vscode-catch2-test-adapter
+
+tasks:
+  - name: init python environment
+    init: |
+      python -m venv ${PYTHON_VENV}
+      exit
+  - name: open-readme-guide
+    init: |
+      gp open README.md
+      exit
