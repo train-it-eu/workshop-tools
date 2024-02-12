@@ -29,9 +29,10 @@ from conan.tools.files import copy, load, rmdir
 
 class EchoConan(ConanFile):
     name = "echo"
+    package_type = "library"
     settings = "os", "arch", "compiler", "build_type"
-    options = {"shared": [True, False], "fPIC": [True, False]}
-    default_options = {"shared": False, "fPIC": True}
+    options = {"shared": [True, False], "fPIC": [True, False], "mixins": [True, False]}
+    default_options = {"shared": False, "fPIC": True, "mixins": False}
     exports = "LICENSE.md"
     exports_sources = "src/*", "test/*", "cmake/*", "example/*", "CMakeLists.txt"
     no_copy_source = True
@@ -46,6 +47,10 @@ class EchoConan(ConanFile):
             r"project\([^\)]+VERSION (\d+\.\d+\.\d+)[^\)]*\)", content
         ).group(1)
         self.version = version.strip()
+
+    def requirements(self):
+        if self.options.mixins:
+            self.requires("ciabatta/4.0.0", transitive_headers=True)
 
     def build_requirements(self):
         if self._build_all:
@@ -69,6 +74,7 @@ class EchoConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.cache_variables["CMAKE_MESSAGE_CONTEXT_SHOW"] = True
         tc.cache_variables["CMAKE_VERIFY_INTERFACE_HEADER_SETS"] = self._build_all
+        tc.cache_variables["ECHO_MIXINS"] = bool(self.options.mixins)
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()
@@ -97,3 +103,5 @@ class EchoConan(ConanFile):
         self.cpp_info.components["protocol"].libs = ["echo-protocol"]
         self.cpp_info.components["server"].requires = ["protocol"]
         self.cpp_info.components["server"].libs = ["echo-server"]
+        if self.options.mixins:
+            self.cpp_info.components["mixins"].requires = ["ciabatta::ciabatta"]

@@ -31,6 +31,7 @@ class CiabattaConan(ConanFile):
     license = "Apache-2.0 License"
     author = "Gašper Ažman <gasper.azman@gmail.com>"
     description = "The C++ Mixin Support Library: Sandwich Mixins all the way"
+    package_type = "header-library"
     no_copy_source = True
 
     def source(self):
