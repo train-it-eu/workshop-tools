@@ -1,3 +1,6 @@
+[requires]
+echo/0.1.0
+
 [test_requires]
 gtest/1.10.0
 
