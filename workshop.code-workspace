@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"path": "echo-cli"
+		},
+		{
+			"path": "echo-cli/external/echo"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.startupEditor": "none",
+		"editor.tabSize": 2,
+		"editor.formatOnSave": true,
+		"editor.bracketPairColorization.enabled": true,
+		"editor.guides.bracketPairs": "active",
+		"cmake.configureOnOpen": true,
+		"cmake.options.statusBarVisibility": "visible",
+		"cmake.options.advanced": {
+			"testPreset": {
+				"statusBarVisibility": "hidden"
+			},
+			"ctest": {
+				"statusBarVisibility": "hidden"
+			}
+		},
+		"cmake.allowUnsupportedPresetsVersions": true,
+		"clang-format.executable": "/usr/bin/clang-format-17",
+		"C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+		"files.associations": {
+			"*.cps": "json"
+		},
+		"json.schemas": [
+			{
+				"fileMatch": [
+					"*.cps"
+				],
+				"url": "https://cps-org.github.io/cps/cps.schema.json"
+			}
+		]
+	}
+}
