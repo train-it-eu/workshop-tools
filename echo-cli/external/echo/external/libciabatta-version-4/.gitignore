@@ -1,0 +1,8 @@
+bazel-*
+build-cmake
+build
+.vscode
+cmake-build
+cmake-install
+cmake-scratch
+.test-output

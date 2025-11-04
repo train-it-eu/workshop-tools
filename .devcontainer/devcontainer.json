@@ -1,0 +1,80 @@
+{
+  "name": "Modern Toolset Workshop",
+  // Docker image with all required compilers and tools for mp-units development
+  // Dockerfile: https://github.com/train-it-eu/docker-images/blob/main/cpp/Dockerfile
+  "image": "trainiteu/cpp:latest",
+  "remoteUser": "ubuntu",
+  "features": {},
+  "mounts": [
+    {
+      "source": "${localWorkspaceFolderBasename}-persistent-data",
+      "target": "/workspaces/persistent",
+      "type": "volume"
+    }
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "workbench.startupEditor": "none",
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "editor.bracketPairColorization.enabled": true,
+        "editor.guides.bracketPairs": "active",
+        "cmake.configureOnOpen": true,
+        "cmake.options.statusBarVisibility": "visible",
+        "cmake.options.advanced": {
+          "testPreset": {
+            "statusBarVisibility": "hidden"
+          },
+          "ctest": {
+            "statusBarVisibility": "hidden"
+          }
+        },
+        "clang-format.executable": "/usr/bin/clang-format",
+        "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+        "cmake.debugConfig": {
+          "MIMode": "gdb",
+          "miDebuggerPath": "/usr/bin/gdb"
+        },
+        "yaml.schemas": {
+          "https://squidfunk.github.io/mkdocs-material/schema.json": "mkdocs.yml"
+        },
+        "yaml.customTags": [
+          "!ENV scalar",
+          "!ENV sequence",
+          "tag:yaml.org,2002:python/name:materialx.emoji.to_svg",
+          "tag:yaml.org,2002:python/name:materialx.emoji.twemoji",
+          "tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format"
+        ],
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter"
+        },
+        "markdown.validate.enabled": true,
+        "markdown.validate.fragmentLinks.enabled": "ignore",
+        "markdown.validate.referenceLinks.enabled": "ignore",
+        "cSpell.diagnosticLevel": "Hint"
+      },
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "VisualStudioExptTeam.intellicode-api-usage-examples",
+        "ms-vscode.cmake-tools",
+        "fredericbonnet.cmake-test-adapter",
+        "matepek.vscode-catch2-test-adapter",
+        "xaver.clang-format",
+        "ms-python.python",
+        "ms-python.black-formatter",
+        "hbenl.vscode-test-explorer",
+        "mhutchie.git-graph",
+        "Gruntfuggly.todo-tree",
+        "streetsidesoftware.code-spell-checker",
+        "ms-vsliveshare.vsliveshare"
+      ]
+    }
+  },
+  "runArgs": [
+    "--init"
+  ],
+  "postStartCommand": "echo '🚀 Workshop development environment ready!'"
+}
