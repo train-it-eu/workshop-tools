@@ -36,4 +36,6 @@ target_link_libraries(unit-tests
     echo::server
     gtest_main
 )
-add_test(NAME echo-unit-tests COMMAND unit-tests)
+
+include(GoogleTest)
+gtest_discover_tests(unit-tests)
