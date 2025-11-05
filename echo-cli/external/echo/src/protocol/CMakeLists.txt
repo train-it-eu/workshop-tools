@@ -20,11 +20,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 4.0)
-project(echo-dev LANGUAGES CXX)
-
-# echo library
-add_subdirectory(src)
-
-# usage examples
-add_subdirectory(example)
+add_library(echo-protocol STATIC)
+target_sources(echo-protocol 
+  PRIVATE
+    messages_io.cpp 
+  PUBLIC
+    FILE_SET HEADERS
+    BASE_DIRS include
+    FILES
+      include/echo/messages.h
+      include/echo/messages_io.h
+)
+target_compile_features(echo-protocol PUBLIC cxx_std_20)
+add_library(echo::protocol ALIAS echo-protocol)
