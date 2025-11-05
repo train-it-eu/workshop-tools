@@ -19,6 +19,9 @@
 		"cmake.configureOnOpen": true,
 		"cmake.generator": "Ninja Multi-Config",
 		"cmake.buildDirectory": "${workspaceFolder}/build/${buildKitVendor}-${buildKitVersionMajor}",
+		"cmake.configureArgs": [
+			"-DCMAKE_VERIFY_INTERFACE_HEADER_SETS=ON"
+		],
 		"cmake.options.statusBarVisibility": "visible",
 		"cmake.options.advanced": {
 			"testPreset": {
