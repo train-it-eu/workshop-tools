@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// #include "build_info/build_info.h"
+#include "build_info/build_info.h"
 // #include "echo_cli_config.h"
 // #include "server.h"
 #include <filesystem>
@@ -39,7 +39,7 @@ void usage(const path& p)
 #else
   std::cout << "Debug";
 #endif
-  // std::cout << ", linked with: " << fix_parser_cli::get_build_type();
+  std::cout << ", linked with: " << fix_parser_cli::get_build_type();
   std::cout << ")\n";
 }
 
