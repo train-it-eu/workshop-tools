@@ -23,6 +23,9 @@
 cmake_minimum_required(VERSION 4.0)
 project(echo-dev LANGUAGES CXX)
 
+# add dependencies
+add_subdirectory(external/libciabatta-version-4 SYSTEM)
+
 # echo library
 add_subdirectory(src)
 
