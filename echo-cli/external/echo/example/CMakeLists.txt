@@ -20,11 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 4.0)
-project(echo-dev LANGUAGES CXX)
-
-# echo library
-add_subdirectory(src)
-
-# usage examples
-add_subdirectory(example)
+add_executable(server-example)
+target_sources(server-example PRIVATE server.cpp)
+target_link_libraries(server-example PRIVATE echo::server)

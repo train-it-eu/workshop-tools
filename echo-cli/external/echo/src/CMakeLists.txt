@@ -21,10 +21,11 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 4.0)
-project(echo-dev LANGUAGES CXX)
+project(echo
+  VERSION 0.1.0
+  LANGUAGES CXX
+)
 
-# echo library
-add_subdirectory(src)
-
-# usage examples
-add_subdirectory(example)
+# build definition
+add_subdirectory(protocol)
+add_subdirectory(server)
