@@ -23,18 +23,16 @@
 // #include "build_info/build_info.h"
 // #include "echo_cli_config.h"
 // #include "server.h"
-// #include <filesystem>
+#include <filesystem>
 #include <iostream>
 
 namespace {
 
-using path = const char*;
-// using path = std::filesystem::path;
+using path = std::filesystem::path;
 
 void usage(const path& p)
 {
-  std::cout << "Usage: " << p << " COUNT PAYLOAD_SIZE\n";
-  // std::cout << "Usage: " << p.filename().string() << " COUNT PAYLOAD_SIZE\n";
+  std::cout << "Usage: " << p.filename().string() << " COUNT PAYLOAD_SIZE\n";
   std::cout << "Version: " << 0 << "." << 1 << " (compiled as: ";
 #if NDEBUG
   std::cout << "Release";
