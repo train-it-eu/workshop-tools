@@ -21,7 +21,14 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 4.0)
-project(echo-cli-dev LANGUAGES CXX)
+project(echo-cli
+  VERSION 0.1.0
+  LANGUAGES CXX
+)
 
-# project sources
-add_subdirectory(src)
+add_subdirectory(build_info)
+
+add_executable(echo-cli)
+target_sources(echo-cli PRIVATE main.cpp)
+target_compile_features(echo-cli PRIVATE cxx_std_17)
+target_link_libraries(echo-cli PRIVATE echo-cli-build-info)
