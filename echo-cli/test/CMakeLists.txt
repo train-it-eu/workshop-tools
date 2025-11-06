@@ -20,14 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-add_executable(unit-tests)
-target_sources(unit-tests PRIVATE build_info_test.cpp)
-target_include_directories(unit-tests PRIVATE ${echo-cli_SOURCE_DIR})
-target_link_libraries(unit-tests
+add_executable(echo-cli-unit-tests)
+target_sources(echo-cli-unit-tests PRIVATE build_info_test.cpp)
+target_include_directories(echo-cli-unit-tests PRIVATE ${echo-cli_SOURCE_DIR})
+target_link_libraries(echo-cli-unit-tests
   PRIVATE
     echo-cli-build-info
     gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(unit-tests)
+gtest_discover_tests(echo-cli-unit-tests)
