@@ -20,22 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-add_executable(unit-tests)
-target_sources(unit-tests PRIVATE
+add_executable(echo-unit-tests)
+target_sources(echo-unit-tests PRIVATE
   messages_test.cpp
   messages_io_test.cpp
   utils_test.cpp
   server_test.cpp
 )
-target_include_directories(unit-tests
-  PRIVATE
-    ${echo_SOURCE_DIR}
-)
-target_link_libraries(unit-tests
+target_include_directories(echo-unit-tests PRIVATE ${echo_SOURCE_DIR})
+target_link_libraries(echo-unit-tests
   PRIVATE
     echo::server
     gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(unit-tests)
+gtest_discover_tests(echo-unit-tests)
