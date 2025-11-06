@@ -20,15 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 4.0)
-project(echo-cli-dev LANGUAGES CXX)
+add_executable(unit-tests)
+target_sources(unit-tests PRIVATE build_info_test.cpp)
+target_include_directories(unit-tests PRIVATE ${echo-cli_SOURCE_DIR})
+target_link_libraries(unit-tests
+  PRIVATE
+    echo-cli-build-info
+    gtest_main
+)
 
-# project dependencies
-add_subdirectory(external/googletest-1.10.x SYSTEM)
-
-# project sources
-add_subdirectory(src)
-
-# unit tests
-enable_testing()
-add_subdirectory(test)
+include(GoogleTest)
+gtest_discover_tests(unit-tests)
