@@ -29,6 +29,20 @@ project(echo-cli
 add_subdirectory(build_info)
 
 add_executable(echo-cli)
-target_sources(echo-cli PRIVATE main.cpp)
+target_sources(echo-cli
+  PRIVATE 
+    main.cpp
+    server.cpp
+  PRIVATE
+    FILE_SET internal
+    TYPE HEADERS
+    FILES
+      server.h
+)
 target_compile_features(echo-cli PRIVATE cxx_std_17)
-target_link_libraries(echo-cli PRIVATE echo-cli-build-info)
+target_link_libraries(echo-cli
+  PRIVATE
+    echo-cli-build-info
+    echo::server
+    echo::mixins
+)
