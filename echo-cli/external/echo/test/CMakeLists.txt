@@ -21,20 +21,26 @@
 # SOFTWARE.
 
 find_package(GTest CONFIG REQUIRED)
+include(GoogleTest)
 
-add_executable(echo-unit-tests)
-target_sources(echo-unit-tests PRIVATE
+function(add_gtest_unit_tests target link_target)
+  if(NOT TARGET ${link_target})
+    message(FATAL_ERROR "'${link_target}' is not a CMake target")
+  endif()
+
+  add_executable(${target})
+  target_sources(${target} PRIVATE ${ARGN})
+  target_include_directories(${target} PRIVATE ${echo_SOURCE_DIR})
+  target_link_libraries(${target} PRIVATE ${link_target} GTest::gtest_main)
+  gtest_discover_tests(${target})
+endfunction()
+
+add_gtest_unit_tests(echo-protocol-unit-tests echo::protocol
   messages_test.cpp
   messages_io_test.cpp
+)
+
+add_gtest_unit_tests(echo-server-unit-tests echo::server
   utils_test.cpp
   server_test.cpp
 )
-target_include_directories(echo-unit-tests PRIVATE ${echo_SOURCE_DIR})
-target_link_libraries(echo-unit-tests
-  PRIVATE
-    echo::server
-    GTest::gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(echo-unit-tests)
