@@ -22,51 +22,7 @@
 
 find_package(GTest CONFIG REQUIRED)
 include(GoogleTest)
-
-function(validate_unparsed target prefix)
-  if(${prefix}_UNPARSED_ARGUMENTS)
-    message(FATAL_ERROR "Invalid arguments '${${prefix}_UNPARSED_ARGUMENTS}' for target '${target}'")
-  endif()
-endfunction()
-
-function(validate_argument_exists target prefix arg)
-  if(NOT ${prefix}_${arg})
-    message(FATAL_ERROR "'${arg}' not provided for target '${target}'")
-  endif()
-endfunction()
-
-function(validate_arguments_exists target prefix)
-  foreach(arg ${ARGN})
-    validate_argument_exists(${target} ${prefix} ${arg})
-  endforeach()
-endfunction()
-
-#
-# add_gtest_unit_tests(TargetName [EXCLUDE_FROM_ALL]
-#                      LIBRARIES <lib>...
-#                      SOURCES <item>...)
-#
-function(add_gtest_unit_tests target)
-  # parse arguments
-  set(options EXCLUDE_FROM_ALL)
-  set(oneValueArgs)
-  set(multiValueArgs LIBRARIES SOURCES)
-  cmake_parse_arguments(PARSE_ARGV 1 add_gtest_unit_tests "${options}" "${oneValueArgs}" "${multiValueArgs}")
-
-  # validate and process arguments
-  validate_unparsed(${target} add_gtest_unit_tests)
-  validate_arguments_exists(${target} add_gtest_unit_tests LIBRARIES SOURCES)
-  if(add_gtest_unit_tests_EXCLUDE_FROM_ALL)
-    set(exclude_from_all EXCLUDE_FROM_ALL)
-  endif()
-
-  # define tests
-  add_executable(${target} ${exclude_from_all})
-  target_sources(${target} PRIVATE ${add_gtest_unit_tests_SOURCES})
-  target_include_directories(${target} PRIVATE ${echo_SOURCE_DIR})
-  target_link_libraries(${target} PRIVATE ${add_gtest_unit_tests_LIBRARIES} GTest::gtest_main)
-  gtest_discover_tests(${target})
-endfunction()
+include(unit_test_helpers)
 
 add_gtest_unit_tests(echo-protocol-unit-tests
   LIBRARIES echo::protocol

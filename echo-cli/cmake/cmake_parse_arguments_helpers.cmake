@@ -21,20 +21,21 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 4.0)
-project(echo-dev LANGUAGES CXX)
 
-list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+function(validate_unparsed target prefix)
+  if(${prefix}_UNPARSED_ARGUMENTS)
+    message(FATAL_ERROR "Invalid arguments '${${prefix}_UNPARSED_ARGUMENTS}' for target '${target}'")
+  endif()
+endfunction()
 
-# set restrictive compilation warnings
-include(warnings)
-set_warnings()
+function(validate_argument_exists target prefix arg)
+  if(NOT ${prefix}_${arg})
+    message(FATAL_ERROR "'${arg}' not provided for target '${target}'")
+  endif()
+endfunction()
 
-# echo library
-add_subdirectory(src)
-
-# usage examples
-add_subdirectory(example)
-
-# unit tests
-enable_testing()
-add_subdirectory(test)
+function(validate_arguments_exists target prefix)
+  foreach(arg ${ARGN})
+    validate_argument_exists(${target} ${prefix} ${arg})
+  endforeach()
+endfunction()

@@ -21,15 +21,10 @@
 # SOFTWARE.
 
 find_package(GTest CONFIG REQUIRED)
-
-add_executable(echo-cli-unit-tests)
-target_sources(echo-cli-unit-tests PRIVATE build_info_test.cpp)
-target_include_directories(echo-cli-unit-tests PRIVATE ${echo-cli_SOURCE_DIR})
-target_link_libraries(echo-cli-unit-tests
-  PRIVATE
-    echo-cli-build-info
-    GTest::gtest_main
-)
-
 include(GoogleTest)
-gtest_discover_tests(echo-cli-unit-tests)
+include(unit_test_helpers)
+
+add_gtest_unit_tests(echo-cli-unit-tests
+  LIBRARIES echo-cli-build-info
+  SOURCES build_info_test.cpp
+)
