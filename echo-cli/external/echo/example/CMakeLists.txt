@@ -24,10 +24,12 @@ add_executable(server-example)
 target_sources(server-example PRIVATE server.cpp)
 target_link_libraries(server-example PRIVATE echo::server)
 
-add_executable(server-example-mixins)
-target_sources(server-example-mixins PRIVATE server_mixin.cpp)
-target_link_libraries(server-example-mixins
-  PRIVATE
-    echo::server
-    echo::mixins
-)
+if(TARGET echo::mixins)
+  add_executable(server-example-mixins)
+  target_sources(server-example-mixins PRIVATE server_mixin.cpp)
+  target_link_libraries(server-example-mixins
+    PRIVATE
+      echo::server
+      echo::mixins
+  )
+endif()

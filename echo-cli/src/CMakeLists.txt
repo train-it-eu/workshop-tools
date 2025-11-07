@@ -52,5 +52,5 @@ target_link_libraries(echo-cli
   PRIVATE
     echo-cli-build-info
     echo::server
-    echo::mixins
+    $<$<TARGET_EXISTS:echo::mixins>:echo::mixins>
 )
