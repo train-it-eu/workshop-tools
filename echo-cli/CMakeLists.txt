@@ -23,6 +23,12 @@
 cmake_minimum_required(VERSION 4.0)
 project(echo-cli-dev LANGUAGES CXX)
 
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+
+# set restrictive compilation warnings
+include(warnings)
+set_warnings()
+
 # project dependencies
 add_subdirectory(external/echo/src SYSTEM)
 
