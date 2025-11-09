@@ -55,3 +55,8 @@ install(EXPORT echo-targets
   FILE echo-config.cmake
   EXPORT_PACKAGE_DEPENDENCIES
 )
+
+# local build
+export(EXPORT echo-targets
+  NAMESPACE echo::
+)
