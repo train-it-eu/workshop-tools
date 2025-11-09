@@ -29,6 +29,9 @@ project(echo-cli
 # add dependencies
 find_package(echo CONFIG REQUIRED GLOBAL)
 
+# Experimental CPS workaround
+set_property(TARGET echo::server PROPERTY IMPORTED_GLOBAL TRUE)
+
 # create project configuration
 configure_file(echo_cli_config.h.in echo_cli_config.h)
 
