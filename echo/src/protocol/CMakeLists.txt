@@ -20,6 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+list(APPEND CMAKE_MESSAGE_CONTEXT protocol)
+
+# build definition
 add_library(echo-protocol STATIC)
 target_sources(echo-protocol 
   PRIVATE

@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 4.0)
+list(APPEND CMAKE_MESSAGE_CONTEXT echo)
 project(echo
   VERSION 0.1.0
   LANGUAGES CXX
@@ -35,10 +36,10 @@ add_subdirectory(protocol)
 add_subdirectory(server)
 
 if(ECHO_MIXINS)
-  message("Mixins support enabled")
+  message(STATUS "Mixins support enabled")
   add_subdirectory(mixins)
 else()
-  message("Mixins support disabled")
+  message(STATUS "Mixins support disabled (ECHO_MIXINS cache option can be used to enable)")
 endif()
 
 # installation
