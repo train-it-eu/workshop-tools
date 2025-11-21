@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+list(APPEND CMAKE_MESSAGE_CONTEXT example)
+
 add_executable(server-example)
 target_sources(server-example PRIVATE server.cpp)
 target_link_libraries(server-example PRIVATE echo::server)

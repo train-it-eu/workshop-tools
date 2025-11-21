@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 4.0)
+list(APPEND CMAKE_MESSAGE_CONTEXT echo-cli)
 project(echo-cli
   VERSION 0.1.0
   LANGUAGES CXX
