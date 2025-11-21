@@ -45,8 +45,4 @@ endif()
 install(PACKAGE_INFO echo EXPORT echo-targets)
 
 # local build
-export(EXPORT echo-targets
-  NAMESPACE echo::
-  FILE echo-config.cmake
-  EXPORT_PACKAGE_DEPENDENCIES
-)
+export(EXPORT echo-targets PACKAGE_INFO echo)
