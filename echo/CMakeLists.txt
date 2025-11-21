@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 4.0)
+list(APPEND CMAKE_MESSAGE_CONTEXT echo-dev)
 project(echo-dev LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")

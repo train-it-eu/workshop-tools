@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+list(APPEND CMAKE_MESSAGE_CONTEXT test)
+
 find_package(GTest CONFIG REQUIRED)
 include(GoogleTest)
 include(unit_test_helpers)
