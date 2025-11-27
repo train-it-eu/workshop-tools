@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 from conan import ConanFile
-from conan.tools.cmake import cmake_layout
+from conan.tools.cmake import CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.build import check_min_cppstd
 
 
@@ -30,7 +30,6 @@ class EchoConan(ConanFile):
     test_requires = "gtest/1.10.0"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
-    generators = "CMakeDeps", "CMakeToolchain"
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -45,3 +44,14 @@ class EchoConan(ConanFile):
 
     def layout(self):
         cmake_layout(self)
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.cache_variables["CMAKE_MESSAGE_CONTEXT_SHOW"] = True
+        tc.cache_variables["CMAKE_VERIFY_INTERFACE_HEADER_SETS"] = True
+        tc.cache_variables["CMAKE_EXPERIMENTAL_EXPORT_PACKAGE_INFO"] = (
+            "b80be207-778e-46ba-8080-b23bba22639e"
+        )
+        tc.generate()
+        deps = CMakeDeps(self)
+        deps.generate()
